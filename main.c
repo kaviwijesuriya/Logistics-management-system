@@ -6,11 +6,10 @@
 #define MAX_CITIES 30
 
 char cityName[MAX_CITIES][50];
-
 int numOfCities = 0;
 
-
 void addCity();
+void renameCity();
 
 int main() {
     int choice;
@@ -31,10 +30,10 @@ int main() {
 
         switch (choice) {
             case 1: addCity(); break;
-
+            case 2: renameCity(); break;
 
         }
-    } while (choice != 1);
+    } while (choice != 2);
 
     return 0;
 }
@@ -56,3 +55,20 @@ void addCity(){
     }
 }
 
+
+void renameCity() {
+    int idx;
+    if (numOfCities == 0) {
+        printf("No cities available.\n");
+        return;
+    }
+    printf("Enter city index (0 to %d): ", numOfCities - 1);
+    scanf("%d", &idx);
+    if (idx < 0 || idx >= numOfCities) {
+        printf("Invalid index.\n");
+        return;
+    }
+    printf("Enter new name for %s: ", cityName[idx]);
+    scanf("%s", cityName[idx]);
+    printf("City renamed successfully!\n");
+}
