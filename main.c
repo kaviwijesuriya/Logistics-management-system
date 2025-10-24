@@ -212,7 +212,7 @@ void handleDelivery() {
     float charge = totalCost + profit;
     float time = (float)D / speed;
 
-    printf("==================================================\n");
+   printf("==================================================\n");
     printf("DELIVERY COST ESTIMATION\n");
     printf("--------------------------------------------------\n");
     printf("From: %s\nTo: %s\nVehicle: %s\nDistance: %d km\nWeight: %.2f kg\n", cityName[src], cityName[dest], vehicle, D, weight);
@@ -221,4 +221,19 @@ void handleDelivery() {
            cost, fuelCost, totalCost, profit, charge, time);
     printf("==================================================\n");
 
+    // Save delivery record
+    if (deliveryCount < MAX_DELIVERIES) {
+        strcpy(deliveries[deliveryCount].source, cityName[src]);
+        strcpy(deliveries[deliveryCount].destination, cityName[dest]);
+        strcpy(deliveries[deliveryCount].vehicle, vehicle);
+        deliveries[deliveryCount].distance = D;
+        deliveries[deliveryCount].weight = weight;
+        deliveries[deliveryCount].cost = cost;
+        deliveries[deliveryCount].fuelCost = fuelCost;
+        deliveries[deliveryCount].totalCost = totalCost;
+        deliveries[deliveryCount].profit = profit;
+        deliveries[deliveryCount].charge = charge;
+        deliveries[deliveryCount].time = time;
+        deliveryCount++;
+    }
 }
