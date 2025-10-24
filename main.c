@@ -59,7 +59,6 @@ int main() {
             case 5: displayDistance(); break;
             case 6: handleDelivery(); break;
             case 7: showReports(); break;
-
         }
     } while (choice != 7);
 
@@ -260,4 +259,13 @@ void showReports() {
         if (deliveries[i].distance < shortest)
             shortest = deliveries[i].distance;
     }
+
+    printf("\n===== PERFORMANCE REPORT =====\n");
+    printf("Total Deliveries Completed: %d\n", deliveryCount);
+    printf("Total Distance Covered: %.2f km\n", totalDist);
+    printf("Average Delivery Time: %.2f hours\n", totalTime / deliveryCount);
+    printf("Total Revenue (Customer Charge): %.2f LKR\n", totalCharge);
+    printf("Total Profit: %.2f LKR\n", totalProfit);
+    printf("Longest Route: %d km\n", longest);
+    printf("Shortest Route: %d km\n", shortest);
 }
