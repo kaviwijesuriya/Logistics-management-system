@@ -15,6 +15,7 @@ void renameCity();
 void removeCity();
 void inputDistance();
 void displayDistance();
+void handleDelivery();
 
 int main() {
     int choice;
@@ -39,9 +40,10 @@ int main() {
             case 3: removeCity(); break;
             case 4: inputDistance(); break;
             case 5: displayDistance(); break;
+            case 6: handleDelivery(); break;
 
         }
-    } while (choice != 5);
+    } while (choice != 6);
 
     return 0;
 }
@@ -143,3 +145,34 @@ void displayDistance() {
         printf("\n");
     }
 }
+
+void handleDelivery() {
+    if (numOfCities < 2) {
+        printf("Add cities and distances first.\n");
+        return;
+    }
+
+    int src, dest, vType;
+    float weight;
+    const float fuelPrice = 310;
+
+    printf("Enter source city index: "); scanf("%d", &src);
+    printf("Enter destination city index: "); scanf("%d", &dest);
+    printf("Enter weight (kg): "); scanf("%f", &weight);
+
+    printf("Select vehicle:\n1. Van\n2. Truck\n3. Lorry\n");
+    scanf("%d", &vType);
+
+    char vehicle[20];
+    int rate, capacity, speed, eff;
+
+    switch (vType) {
+        case 1: strcpy(vehicle, "Van"); rate = 30; capacity = 1000; speed = 60; eff = 12; break;
+        case 2: strcpy(vehicle, "Truck"); rate = 40; capacity = 5000; speed = 50; eff = 6; break;
+        case 3: strcpy(vehicle, "Lorry"); rate = 80; capacity = 10000; speed = 45; eff = 4; break;
+        default: printf("Invalid vehicle.\n"); return;
+    }
+
+
+}
+
