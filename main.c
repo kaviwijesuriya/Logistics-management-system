@@ -32,6 +32,7 @@ void removeCity();
 void inputDistance();
 void displayDistance();
 void handleDelivery();
+void showReports();
 
 int main() {
     int choice;
@@ -57,9 +58,10 @@ int main() {
             case 4: inputDistance(); break;
             case 5: displayDistance(); break;
             case 6: handleDelivery(); break;
+            case 7: showReports(); break;
 
         }
-    } while (choice != 6);
+    } while (choice != 7);
 
     return 0;
 }
@@ -235,5 +237,27 @@ void handleDelivery() {
         deliveries[deliveryCount].charge = charge;
         deliveries[deliveryCount].time = time;
         deliveryCount++;
+    }
+}
+
+void showReports() {
+    float totalDist = 0, totalProfit = 0, totalCharge = 0, totalTime = 0;
+    int longest = 0, shortest = 100000;
+
+    if (deliveryCount == 0) {
+        printf("No deliveries yet.\n");
+        return;
+    }
+
+    for (int i = 0; i < deliveryCount; i++) {
+        totalDist += deliveries[i].distance;
+        totalProfit += deliveries[i].profit;
+        totalCharge += deliveries[i].charge;
+        totalTime += deliveries[i].time;
+
+        if (deliveries[i].distance > longest)
+            longest = deliveries[i].distance;
+        if (deliveries[i].distance < shortest)
+            shortest = deliveries[i].distance;
     }
 }
