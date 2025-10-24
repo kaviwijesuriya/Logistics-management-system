@@ -14,6 +14,7 @@ void addCity();
 void renameCity();
 void removeCity();
 void inputDistance();
+void displayDistance();
 
 int main() {
     int choice;
@@ -37,9 +38,10 @@ int main() {
             case 2: renameCity(); break;
             case 3: removeCity(); break;
             case 4: inputDistance(); break;
+            case 5: displayDistance(); break;
 
         }
-    } while (choice != 4);
+    } while (choice != 5);
 
     return 0;
 }
@@ -118,4 +120,26 @@ void inputDistance() {
     scanf("%d", &d);
     distanceMatrix[i][j] = distanceMatrix[j][i] = d;
     printf("Distance updated.\n");
+}
+
+void displayDistance() {
+    if (numOfCities == 0) {
+        printf("No cities.\n");
+        return;
+    }
+
+    printf("\nDistance Matrix:\n");
+    printf("%12s", "");
+    for (int j = 0; j < numOfCities; j++) {
+        printf("%12s", cityName[j]);
+    }
+    printf("\n");
+
+    for (int i = 0; i < numOfCities; i++) {
+        printf("%12s", cityName[i]);
+        for (int j = 0; j < numOfCities; j++) {
+            printf("%12d", distanceMatrix[i][j]);
+        }
+        printf("\n");
+    }
 }
