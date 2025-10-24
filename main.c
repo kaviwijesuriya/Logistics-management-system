@@ -33,6 +33,7 @@ void inputDistance();
 void displayDistance();
 void handleDelivery();
 void showReports();
+void saveAndExit();
 
 int main() {
     int choice;
@@ -59,8 +60,10 @@ int main() {
             case 5: displayDistance(); break;
             case 6: handleDelivery(); break;
             case 7: showReports(); break;
+            case 8: saveAndExit(); break;
+
         }
-    } while (choice != 7);
+    } while (choice != 8);
 
     return 0;
 }
@@ -268,4 +271,43 @@ void showReports() {
     printf("Total Profit: %.2f LKR\n", totalProfit);
     printf("Longest Route: %d km\n", longest);
     printf("Shortest Route: %d km\n", shortest);
+}
+
+void saveAndExit() {
+    FILE *fp;
+
+    // Try to open in current directory first
+    fp = fopen("deliveries.txt", "w");
+
+    // If failed, try a fallback directory
+    if (fp == NULL) {
+        perror("Error saving file"); // shows system error reason
+        printf("Attempting to save in desktop directory...\n");
+        fp = fopen("C:\\Users\\Public\\deliveries.txt", "w"); // for Windows fallback
+        if (fp == NULL) {
+            perror("Second attempt failed");
+            printf("Cannot save file. Please check folder permissions.\n");
+            return;
+        }
+    }
+
+    fprintf(fp, "Source Destination Vehicle Distance Weight Cost FuelCost TotalCost Profit Charge Time\n");
+    fprintf(fp, "-------------------------------------------------------------------------------\n");
+
+    for (int i = 0; i < deliveryCount; i++) {
+        fprintf(fp, "%s %s %s %d %.2f %.2f %.2f %.2f %.2f %.2f %.2f\n",
+                deliveries[i].source,
+                deliveries[i].destination,
+                deliveries[i].vehicle,
+                deliveries[i].distance,
+                deliveries[i].weight,
+                deliveries[i].cost,
+                deliveries[i].fuelCost,
+                deliveries[i].totalCost,
+                deliveries[i].profit,
+                deliveries[i].charge,
+                deliveries[i].time);
+    }
+
+
 }
