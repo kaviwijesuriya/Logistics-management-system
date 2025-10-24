@@ -61,7 +61,6 @@ int main() {
             case 6: handleDelivery(); break;
             case 7: showReports(); break;
             case 8: saveAndExit(); break;
-
         }
     } while (choice != 8);
 
@@ -309,5 +308,6 @@ void saveAndExit() {
                 deliveries[i].time);
     }
 
-
+    fclose(fp);
+    printf("saved successfully to deliveries.txt. Exiting...\n");
 }
