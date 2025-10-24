@@ -61,6 +61,7 @@ int main() {
             case 6: handleDelivery(); break;
             case 7: showReports(); break;
             case 8: saveAndExit(); break;
+            default: printf("Invalid choice!\n");
         }
     } while (choice != 8);
 
