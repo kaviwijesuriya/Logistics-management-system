@@ -4,6 +4,7 @@
 #include <math.h>
 
 #define MAX_CITIES 30
+#define MAX_DELIVERIES 50
 
 char cityName[MAX_CITIES][50];
 int distanceMatrix[MAX_CITIES][MAX_CITIES];
@@ -12,6 +13,7 @@ int numOfCities = 0;
 void addCity();
 void renameCity();
 void removeCity();
+void inputDistance();
 
 int main() {
     int choice;
@@ -34,8 +36,10 @@ int main() {
             case 1: addCity(); break;
             case 2: renameCity(); break;
             case 3: removeCity(); break;
+            case 4: inputDistance(); break;
+
         }
-    } while (choice != 3);
+    } while (choice != 4);
 
     return 0;
 }
@@ -98,3 +102,20 @@ void removeCity() {
     printf("City removed successfully!\n");
 }
 
+void inputDistance() {
+    if (numOfCities < 2) {
+        printf("Need at least 2 cities.\n");
+        return;
+    }
+    int i, j, d;
+    printf("Enter source city index: "); scanf("%d", &i);
+    printf("Enter destination city index: "); scanf("%d", &j);
+    if (i < 0 || i >= numOfCities || j < 0 || j >= numOfCities || i == j) {
+        printf("Invalid indices.\n");
+        return;
+    }
+    printf("Enter distance between %s and %s (km): ", cityName[i], cityName[j]);
+    scanf("%d", &d);
+    distanceMatrix[i][j] = distanceMatrix[j][i] = d;
+    printf("Distance updated.\n");
+}
