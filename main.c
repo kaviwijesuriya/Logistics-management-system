@@ -6,9 +6,25 @@
 #define MAX_CITIES 30
 #define MAX_DELIVERIES 50
 
+typedef struct {
+    char source[50];
+    char destination[50];
+    char vehicle[20];
+    int distance;
+    float weight;
+    float cost;
+    float fuelCost;
+    float totalCost;
+    float profit;
+    float charge;
+    float time;
+} Delivery;
+
 char cityName[MAX_CITIES][50];
 int distanceMatrix[MAX_CITIES][MAX_CITIES];
 int numOfCities = 0;
+Delivery deliveries[MAX_DELIVERIES];
+int deliveryCount = 0;
 
 void addCity();
 void renameCity();
@@ -173,6 +189,36 @@ void handleDelivery() {
         default: printf("Invalid vehicle.\n"); return;
     }
 
+    if (weight > capacity) {
+        printf("Weight exceeds vehicle capacity!\n");
+        return;
+    }
+    if (src == dest) {
+        printf("Source and destination must be different.\n");
+        return;
+    }
+
+    int D = distanceMatrix[src][dest];
+    if (D == 0) {
+        printf("Distance not set between these cities.\n");
+        return;
+    }
+
+    float cost = D * rate * (1 + weight / 10000.0);
+    float fuelUsed = (float)D / eff;
+    float fuelCost = fuelUsed * fuelPrice;
+    float totalCost = cost + fuelCost;
+    float profit = cost * 0.25;
+    float charge = totalCost + profit;
+    float time = (float)D / speed;
+
+    printf("==================================================\n");
+    printf("DELIVERY COST ESTIMATION\n");
+    printf("--------------------------------------------------\n");
+    printf("From: %s\nTo: %s\nVehicle: %s\nDistance: %d km\nWeight: %.2f kg\n", cityName[src], cityName[dest], vehicle, D, weight);
+    printf("--------------------------------------------------\n");
+    printf("Base Cost: %.2f LKR\nFuel Cost: %.2f LKR\nOperational Cost: %.2f LKR\nProfit: %.2f LKR\nCustomer Charge: %.2f LKR\nEstimated Time: %.2f hours\n",
+           cost, fuelCost, totalCost, profit, charge, time);
+    printf("==================================================\n");
 
 }
-
